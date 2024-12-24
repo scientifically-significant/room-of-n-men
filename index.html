@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<script src="script.js"></script>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@600&family=Noto+Sans:wght@400&display=swap');
+	</style>
+	<title>The Room of n Men</title>
+</head>
+
+<body>
+	<main>
+		<h2>The Room of <output class="sample-size-output">100</output> Men<sup style="color:#CC0000; font-size: small;">WIP</sup></h2>
+		<section>
+			<div>
+				<p>Welcome to “The Room of <i>n</i> Men”, a small website that visualizes penis size statistics.</p>
+				<p>
+					While <a href="https://calcsd.info">CalcSD</a> is a good percentile 
+					calculator, it’s only able to show you the raw numbers. Visuals can
+					give you a clearer picture.
+				</p>
+				<p>
+					Size visualizers like the one hosted 
+					on <a href="https://bigdickguide.com/penis-size-visualizer">the Big Dick Guide</a>
+					do a good job if you want to compare two different sizes. But you can’t really use them
+					to compare with the “average size”, because it’s not a single number, it’s a range.
+				</p>
+				<p>
+					This website generates statistically accurate samples and visualizes them.
+					You can actually see what penis sizes look like on average, what sizes stand out 
+					from the crowd, and how the given size stacks up against others.
+				</p>
+				<p>
+					Each penis is represented as a simple cylinder of equal length and circumference.
+				</p>
+				<p>
+					By default, this site uses mean, standard deviation (SD) and correlation values from 
+					<a href="https://doi.org/10.1111/jsm.13005">Habous et al. 2015</a>.
+					You can set your own values in the “Customize values” section.
+				</p>
+			</div>
+		</section>
+		<section>
+			<div class="input-group">
+				<span class="field"><label for="units-selector">Units: </label><select id="units-selector">
+					<option value="normal">cm</option>
+					<option value="archaic">inches</option>
+				</select></span>
+				<span class="field"><label for="my-length-input">Length: </label><input class="number-input" type="number" id="my-length-input", min="0" step="0.1"></span>
+				<span><label for="my-girth-input">Girth: </label><input class="number-input" type="number" id="my-girth-input", min="0" step="0.1"></span>
+			</div>
+		</section>
+		<section>
+			<div class="input-group">
+				<span class="field"><label for="model-selector">Model: </label><select id="model-selector">
+					<option value="ideal">ideal</option>
+					<option value="random">random</option>
+				</select></span>
+				<span class="field"><label for="sample-size-input">Sample size: </label><input type="number" id="sample-size-input" min="10" max="10000" step="1"></span>
+				<span class="field"><label for="sorting-selector">Sort by: </label><!--
+				 --><select id="sorting-selector">
+						<option value="random">random</option>
+						<option value="volume">volume</option>
+						<option value="length">length</option>
+						<option value="girth">girth</option>
+					</select>
+				</span>
+				<span class="field"><label>Scale: </label><button id="scale-button-minus">−</button><button id="scale-button-plus">+</button></span>
+			</div>
+		</section>
+		<section>
+			<details>
+				<summary class="noselect">Customize values</summary>
+				<div class="input-group">
+					<span class="field"><label for="length-mean-input">Length avg.: </label><input class="number-input" type="number" id="length-mean-input", min="0" step="0.01"></span>
+					<span class="field"><label for="length-sd-input">Length SD: </label><input class="number-input" type="number" id="length-sd-input" min="0" step="0.01"></span>
+					<span class="field"><label for="girth-mean-input">Girth avg.: </label><input class="number-input" type="number" id="girth-mean-input" min="0" step="0.01"></span>
+					<span class="field"><label for="girth-sd-input">Girth SD: </label><input class="number-input" type="number" id="girth-sd-input" min="0" step="0.01"></span>
+					<span class="field"><label for="length-girth-correlation-input">Length—girth correlation: </label><input class="number-input" type="number" id="length-girth-correlation-input" min="-1" max="1" step="0.01"></span>
+				</div>
+			</details>
+		</section>
+		<section>
+			<details>
+				<summary class="noselect">Advanced options</summary>
+				<div class="input-group">
+					<span class="field"><input type="checkbox" id="display-cross-sections-input"><label for="display-cross-sections-input">Display cross-sections</label></span>
+					<span class="field"><input type="checkbox" id="highlight-user-size-input" checked><label for="highlight-user-size-input">Highlight my size</label></span>
+				</div>
+			</details>
+		</section>
+		<section>
+			<details>
+				<summary class="noselect">Help</summary>
+				<p>
+					“Random” model simply generates sizes using RNG. This is an equivalent
+					to taking a random sample of the population. The values will be different
+					every time. The mean and the standard distribution tend to get closer
+					to the general population with larger sample size.
+				</p>
+				<p>
+					“Ideal” model calculates mathematically ideal sets of lengths and girths,
+					then the values are shuffled to achieve the target correlation between
+					two sets. 
+				</p>
+				<p>
+					Statistics of the generated sample are shown on the bottom of the page.
+					Note that even a mathematically ideal sample will have a different SD than 
+					the whole population.
+				</p>
+			</details>
+		</section>
+		<svg id="chart" width="100%" height="350px">
+			<defs>	
+				<linearGradient id="grad-member" x1="0%" x2="100%" y1="0%" y2="0%">
+					<stop offset="0%" stop-color="lightgrey"/>
+					<stop offset="100%" stop-color="darkgrey"/>
+				</linearGradient>
+				<linearGradient id="grad-member-highlighted" x1="0%" x2="100%" y1="0%" y2="0%">
+					<stop offset="0%" stop-color="#C00000"/>
+					<stop offset="100%" stop-color="#A00000"/>
+				</linearGradient>
+				<linearGradient id="grad-buzy" x1="0%" x2="100%" y1="0%" y2="0%">
+					<stop offset="0%" stop-color="#FFFFFF"/>
+					<stop offset="25%" stop-color="#D0D0D0"/>
+					<stop offset="50%" stop-color="#FFFFFF"/>
+					<stop offset="75%" stop-color="#D0D0D0"/>
+					<stop offset="100%" stop-color="#FFFFFF"/>
+				</linearGradient>
+			</defs>
+			<g id="chart-values"></g>
+			<rect id="chart__buzy-overlay" width="200%" height="100%" fill="url(#grad-buzy)"></rect>
+		</svg>
+		<div>Sample stats:
+			length: <output class="factual-length-avg">0</output>±<output class="factual-length-sd">0</output>,
+			girth: <output class="factual-girth-avg">0</output>±<output class="factual-girth-sd">0</output>,
+			length—girth correlation: r=<output class="factual-r">0</output>
+		</div>
+		<footer>
+			No personal data is collected.
+		</footer>
+	</main>
+</body>
+
+</html>

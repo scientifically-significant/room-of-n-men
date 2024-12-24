@@ -1,0 +1,138 @@
+a {
+	color: #C00000;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+body {
+	max-width: 1200px;
+	margin: auto;
+}
+body, input, button, select {
+	font-family: "Noto Sans", sans-serif;
+	font-weight: 400;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+section p {
+	max-width: 40em;
+	margin: 16px;
+}
+
+#chart {
+	transition: 0.25s ease height;
+}
+
+.number-input {
+	width: 4em;
+}
+
+.chart__member__front {
+	fill: url(#grad-member);
+}
+
+.chart__member__cross-section {
+	fill: silver;
+}
+
+g.highlighted .chart__member__front {
+	fill: url(#grad-member-highlighted);
+}
+g.highlighted .chart__member__cross-section {
+	fill: #C00000;
+}
+
+.chart__member__front-label, .chart__member__cross-section-label {
+	font-weight: 600;
+	font-size: 7pt;
+}
+
+.chart__member__front-label, .chart__member__cross-section-label {
+	display: none;
+}
+
+.chart__member:hover .chart__member__front-label, 
+		.chart__member:hover  .chart__member__cross-section-label {
+	display: unset;
+}
+
+details {
+	transition: 0.25s ease height;
+	max-width: 640px;
+}
+
+summary {
+	display: block;
+	user-select: none;
+	text-align: center;
+	color: #808080;
+	
+	cursor: pointer;
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	/*text-decoration-skip-ink: none;*/
+	text-decoration-thickness: 1px;
+
+}
+summary {
+    overflow: hidden;
+    text-align: center;
+}
+
+summary:hover {
+	color: #C00000;
+}
+
+.input-group {
+	margin: 8px;
+}
+
+#chart__buzy-overlay {
+	animation: buzy 1s linear infinite;
+}
+
+section {
+	background-color: #F0F0F0;
+	margin: 8px 0;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	
+}
+
+.input-group {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 8px;
+	justify-content: center;
+}
+
+details > .input-group {
+	margin-top: 0;
+}
+
+main > footer {
+	margin-top: 32px;
+	color: silver;
+	font-style: italic;
+}
+
+@keyframes buzy {
+	from {
+		x: 0%;
+	}
+	to {
+		x: -100%
+	}
+}
