@@ -45,6 +45,10 @@ var workerGenerator = new Worker("sample.js");
 window.onload = function (_) {
 	document.getElementById("my-length-input").value = toUserUnits(targetLengthMean).toFixed(1);
 	document.getElementById("my-length-input").addEventListener("change", (event) => {
+		if (!event.target.validity.valid) {
+			event.target.value = toUserUnits(sizes[userIndex].length).toFixed(1);
+			return;
+		}
 		sizes[userIndex].length = fromUserUnits(1.0*event.target.value);
 		if (sorting != Sorting.random) {
 			sortSample();
@@ -54,6 +58,10 @@ window.onload = function (_) {
 
 	document.getElementById("my-girth-input").value = toUserUnits(targetGirthMean).toFixed(1);
 	document.getElementById("my-girth-input").addEventListener("change", (event) => {
+		if (!event.target.validity.valid) {
+			event.target.value = toUserUnits(sizes[userIndex].girth).toFixed(1);
+			return;
+		}
 		sizes[userIndex].girth = fromUserUnits(1.0*event.target.value);
 		if (sorting != Sorting.random) {
 			sortSample();
@@ -120,7 +128,12 @@ window.onload = function (_) {
 
 	document.getElementById("sample-size-input").value = sampleSize;
 	document.getElementById("sample-size-input").addEventListener("change", (event) => {
-		sampleSize = event.target.value;
+		if (!event.target.validity.valid) {
+			event.target.value = sampleSize;
+			return;
+		}
+		sampleSize = parseInt(event.target.value);
+		
 		document.querySelectorAll(".sample-size-output").forEach(el => {
 			el.textContent = sampleSize;
 		});
@@ -139,30 +152,50 @@ window.onload = function (_) {
 
 	document.getElementById("length-mean-input").value = toUserUnits(targetLengthMean);
 	document.getElementById("length-mean-input").addEventListener("change", (event) => {
+		if (!event.target.validity.valid) {
+			event.target.value = toUserUnits(targetLengthMean).toFixed(1);
+			return;
+		}
 		targetLengthMean = fromUserUnits(1.0*event.target.value);
 		requestUpdate();
 	});
 
 	document.getElementById("length-sd-input").value = toUserUnits(targetLengthSD);
 	document.getElementById("length-sd-input").addEventListener("change", (event) => {
+		if (!event.target.validity.valid) {
+			event.target.value = toUserUnits(targetLengthSD).toFixed(1);
+			return;
+		}
 		targetLengthSD = fromUserUnits(1.0*event.target.value);
 		requestUpdate();
 	});
 
 	document.getElementById("girth-mean-input").value = toUserUnits(targetGirthMean);
 	document.getElementById("girth-mean-input").addEventListener("change", (event) => {
+		if (!event.target.validity.valid) {
+			event.target.value = toUserUnits(targetGirthMean).toFixed(1);
+			return;
+		}
 		targetGirthMean = fromUserUnits(1.0*event.target.value);
 		requestUpdate();
 	});
 
 	document.getElementById("girth-sd-input").value = toUserUnits(targetGirthSD);
 	document.getElementById("girth-sd-input").addEventListener("change", (event) => {
+		if (!event.target.validity.valid) {
+			event.target.value = toUserUnits(targetGirthSD).toFixed(1);
+			return;
+		}
 		targetGirthSD = fromUserUnits(1.0*event.target.value);
 		requestUpdate();
 	});
 
 	document.getElementById("length-girth-correlation-input").value = targetCorrelation;
 	document.getElementById("length-girth-correlation-input").addEventListener("change", (event) => {
+		if (!event.target.validity.valid) {
+			event.target.value = toUserUnits(targetCorrelation).toFixed(1);
+			return;
+		}
 		targetCorrelation = 1.0*event.target.value;
 		requestUpdate();
 	});
