@@ -63,7 +63,6 @@ function standardSampleIdeal2(sampleSize, targetCorrelation) {
 			[sample2[i1], sample2[i2]] = [sample2[i2], sample2[i1]];
 		}
 		if (iter == iterLimit) {
-			console.log("reached iteration limit");
 			break;
 		}
 		iter++;
