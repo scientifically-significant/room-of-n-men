@@ -41,7 +41,10 @@ function standardSampleIdeal2(sampleSize, targetCorrelation) {
 	}
 	let correlation = (productSum - sampleSize*avg*avg) / (sampleSize*sd*sd);
 	let error = Math.abs(correlation - targetCorrelation);
-	while (error > eps) {
+
+	const iterLimit = sampleSize*sampleSize/2; 
+	let iter = 0;
+	while (error > eps && iter < iterLimit) {
 		const i1 = Math.floor((sampleSize-1)*Math.random());
 		const i2 = i1 + 1;
 
@@ -57,6 +60,7 @@ function standardSampleIdeal2(sampleSize, targetCorrelation) {
 			error = newError;
 			[sample2[i1], sample2[i2]] = [sample2[i2], sample2[i1]];
 		}
+		iter++;
 	}
 	return [sample1, sample2];
 }
