@@ -10,6 +10,7 @@ a:hover {
 body {
 	max-width: 1200px;
 	margin: auto;
+	accent-color: #C00000;
 }
 body, input, button, select {
 	font-family: "Noto Sans", sans-serif;
