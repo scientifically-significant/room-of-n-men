@@ -123,9 +123,14 @@ details > .input-group {
 }
 
 main > footer {
-	margin-top: 32px;
+	margin: 32px 0;
 	color: silver;
-	font-style: italic;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 8px 32px;
+	justify-content: center;
 }
 
 @keyframes buzy {
