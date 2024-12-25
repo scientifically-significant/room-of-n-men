@@ -30,10 +30,12 @@ function standardSampleIdeal2(sampleSize, targetCorrelation) {
 	let sample1 = standardSampleIdeal(sampleSize);
 	let sample2 = Array.from(sample1);
 
+	randomShuffle(sample2);
+
 	const avg = mean(sample1);
 	const sd = standardDeviation(sample1, avg);
 
-	const eps = 0.001;
+	const eps = 0.005;
 
 	let productSum = 0;
 	for (let i = 0; i < sampleSize; i++) {
@@ -44,7 +46,7 @@ function standardSampleIdeal2(sampleSize, targetCorrelation) {
 
 	const iterLimit = sampleSize*sampleSize/2; 
 	let iter = 0;
-	while (error > eps && iter < iterLimit) {
+	while (error > eps) {
 		const i1 = Math.floor((sampleSize-1)*Math.random());
 		const i2 = i1 + 1;
 
@@ -60,8 +62,13 @@ function standardSampleIdeal2(sampleSize, targetCorrelation) {
 			error = newError;
 			[sample2[i1], sample2[i2]] = [sample2[i2], sample2[i1]];
 		}
+		if (iter == iterLimit) {
+			console.log("reached iteration limit");
+			break;
+		}
 		iter++;
 	}
+	
 	return [sample1, sample2];
 }
 
@@ -184,4 +191,12 @@ var _cachedRandomStandard = NaN;
 
 function clamp(x, xMin, xMax) {
 	return Math.min(Math.max(x, xMin), xMax);
+}
+
+function randomShuffle(a) {
+	const N = a.length;
+	for (let i1 = 0; i1 < N; i1++) {
+		const i2 = (i1 + Math.floor((N - 1)*Math.random())) % N;
+		[a[i1], a[i2]] = [a[i2], a[i1]];
+	}
 }
