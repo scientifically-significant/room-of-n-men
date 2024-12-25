@@ -62,7 +62,7 @@ function standardSampleIdeal2(sampleSize, targetCorrelation) {
 			error = newError;
 			[sample2[i1], sample2[i2]] = [sample2[i2], sample2[i1]];
 		}
-		if (iter == iterLimit) {
+		if (iter >= iterLimit) {
 			break;
 		}
 		iter++;
